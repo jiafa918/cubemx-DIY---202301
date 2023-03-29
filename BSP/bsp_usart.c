@@ -267,6 +267,7 @@ int Handle_UART1()
     if (StringCompare(temp[0], "set", 0) == 0) // 如果temp[0]表示的字符串与"set"相等（使用StringCompare函数比较）
     {
        Output.ALL = atoi(temp[1]);    //将temp[1]表示的字符串转换为整数类型（使用atoi函数），并将其赋值给Output.ALL。
+			Output.ALL = atoi(temp[2]);    //将temp[1]表示的字符串转换为整数类型（使用atoi函数），并将其赋值给Output.ALL。
         my_printf(uart_debug, "ok,set Output %d \r\n", temp[1]); // 三色灯输入口状态
         return 0;
     }

@@ -3,9 +3,9 @@
 <title>Static Call Graph - [cubemx\cubemx.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image cubemx\cubemx.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Wed Mar 29 11:55:59 2023
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Wed Mar 29 14:26:30 2023
 <BR><P>
-<H3>Maximum Stack Usage =        504 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
+<H3>Maximum Stack Usage =        512 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
 main &rArr; work_flow &rArr; Handle_UART1 &rArr; atoi &rArr; strtol &rArr; _strtoul
 <P>
@@ -802,8 +802,8 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART_EndTransmit_IT
 </UL>
 
-<P><STRONG><a name="[98]"></a>Handle_UART1</STRONG> (Thumb, 144 bytes, Stack size 392 bytes, bsp_usart.o(i.Handle_UART1))
-<BR><BR>[Stack]<UL><LI>Max Depth = 480<LI>Call Chain = Handle_UART1 &rArr; atoi &rArr; strtol &rArr; _strtoul
+<P><STRONG><a name="[98]"></a>Handle_UART1</STRONG> (Thumb, 154 bytes, Stack size 400 bytes, bsp_usart.o(i.Handle_UART1))
+<BR><BR>[Stack]<UL><LI>Max Depth = 488<LI>Call Chain = Handle_UART1 &rArr; atoi &rArr; strtol &rArr; _strtoul
 </UL>
 <BR>[Calls]<UL><LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;StringCompare
 <LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Split
@@ -1043,7 +1043,7 @@ Global Symbols
 <BR>[Address Reference Count : 1]<UL><LI> printfa.o(i.__0printf)
 </UL>
 <P><STRONG><a name="[46]"></a>main</STRONG> (Thumb, 394 bytes, Stack size 16 bytes, main.o(i.main))
-<BR><BR>[Stack]<UL><LI>Max Depth = 504<LI>Call Chain = main &rArr; work_flow &rArr; Handle_UART1 &rArr; atoi &rArr; strtol &rArr; _strtoul
+<BR><BR>[Stack]<UL><LI>Max Depth = 512<LI>Call Chain = main &rArr; work_flow &rArr; Handle_UART1 &rArr; atoi &rArr; strtol &rArr; _strtoul
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;work_flow
 <LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wait_ready
@@ -1086,7 +1086,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[b9]"></a>work_flow</STRONG> (Thumb, 38 bytes, Stack size 8 bytes, bsp.o(i.work_flow))
-<BR><BR>[Stack]<UL><LI>Max Depth = 488<LI>Call Chain = work_flow &rArr; Handle_UART1 &rArr; atoi &rArr; strtol &rArr; _strtoul
+<BR><BR>[Stack]<UL><LI>Max Depth = 496<LI>Call Chain = work_flow &rArr; Handle_UART1 &rArr; atoi &rArr; strtol &rArr; _strtoul
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ScanOutput
 <LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ScanInput
@@ -1099,7 +1099,7 @@ Global Symbols
 <H3>
 Local Symbols
 </H3>
-<P><STRONG><a name="[9f]"></a>MX_GPIO_Init</STRONG> (Thumb, 354 bytes, Stack size 56 bytes, main.o(i.MX_GPIO_Init))
+<P><STRONG><a name="[9f]"></a>MX_GPIO_Init</STRONG> (Thumb, 356 bytes, Stack size 56 bytes, main.o(i.MX_GPIO_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 96<LI>Call Chain = MX_GPIO_Init &rArr; HAL_GPIO_Init
 </UL>
 <BR>[Calls]<UL><LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_WritePin
