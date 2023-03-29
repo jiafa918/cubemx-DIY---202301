@@ -1,0 +1,78 @@
+/*****************************************************************************
+*STLINK  PIN1:VCC3V3  PIN7:SWDIO  PIN9:SWCLK  PIN20:GND
+****************************************************************************/
+
+#include "bsp.h"
+#include "bsp_gpio.h"
+#include "string.h"
+
+extern TIM_HandleTypeDef htim2;
+
+
+
+
+//重写这个函数,重定向printf函数到串口
+/*fputc*/
+extern UART_HandleTypeDef huart1;
+uint8_t ch;
+uint8_t ch_r;
+int fputc(int c, FILE * f)
+{
+    ch=c;
+    HAL_UART_Transmit(&huart1,&ch,1,1000); //发送串口，不同的单片机函数和串口命名不同，替换对于的函数串口名字即可实现不同库和不同单片机的重定向了
+    return c;
+
+}
+
+//重定向scanf函数到串口 意思就是说接受串口发过来的数据
+/*fgetc*/
+int fgetc(FILE * F)
+{
+    HAL_UART_Receive (&huart1,&ch_r,1,0xffff);  //接收
+    return ch_r;
+}
+
+/********************************************************************************
+* 功  能：用户初始化程序
+* 参  数：无
+* 返回值：无
+*********************************************************************************/
+int wait_ready()	//	用户初始化程序
+{
+    HAL_GPIO_WritePin(OUT01_GPIO_Port,OUT01_Pin,GPIO_PIN_SET);
+	
+	
+HAL_TIM_Base_Start_IT(&htim2);
+	
+    printf("The system init ok---\r\n");
+
+}
+/********************************************************************************
+* 功  能：用户的loop程序
+* 参  数：无
+* 返回值：无
+*********************************************************************************/
+int work_flow()					//执行用户的loop程序
+{
+
+    HAL_GPIO_TogglePin(OUT02_GPIO_Port,OUT02_Pin);
+    HAL_Delay(500);
+
+
+
+    // PBout(15)=0;
+    // HAL_Delay(200);
+    // PBout(15)=1;
+    // HAL_Delay(200);
+
+
+    OUT4(1);
+    HAL_Delay(200);
+
+    OUT4(0);
+    HAL_Delay(200);
+
+}
+
+
+

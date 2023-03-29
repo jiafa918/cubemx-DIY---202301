@@ -1,0 +1,23 @@
+*** Using Compiler 'V5.06 update 6 (build 750)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
+Build target 'cubemx'
+compiling bsp_usart.c...
+..\BSP\bsp.h(36): warning:  #1295-D: Deprecated declaration wait_ready - give arg types
+  extern  int wait_ready();           //测试程序
+..\BSP\bsp.h(37): warning:  #1295-D: Deprecated declaration work_flow - give arg types
+  extern int work_flow();    //执行动作程序
+..\BSP\bsp_usart.h(61): warning:  #1295-D: Deprecated declaration Handle_UART1 - give arg types
+  int Handle_UART1();
+..\BSP\bsp_usart.c(266): error:  #513: a value of type "char *" cannot be assigned to an entity of type "unsigned int"
+  			Output.ALL=temp[1];
+..\BSP\bsp_usart.c(245): warning:  #177-D: variable "OutputNum"  was declared but never referenced
+      int OutputNum = 0;            // 用于记录输出次数；
+..\BSP\bsp_usart.c(246): warning:  #177-D: variable "temp_prmt"  was declared but never referenced
+      char temp_prmt[15][20] = {0}; // 接收的字符串放在四个缓存中 用于存储接收的字符串，共有十五个缓存；
+..\BSP\bsp_usart.c(247): warning:  #177-D: variable "item"  was declared but never referenced
+      int32_t item;                 // 序列号  用于存储序列号；
+..\BSP\bsp_usart.c(248): warning:  #177-D: variable "buffer"  was declared but never referenced
+      char buffer[15];              // 用于存储输入的字符串；
+..\BSP\bsp_usart.c: 7 warnings, 1 error
+"cubemx\cubemx.axf" - 1 Error(s), 7 Warning(s).
+Target not created.
+Build Time Elapsed:  00:00:05

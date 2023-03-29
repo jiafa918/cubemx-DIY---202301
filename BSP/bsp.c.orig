@@ -1,0 +1,159 @@
+/*****************************************************************************
+*STLINK  PIN1:VCC3V3  PIN7:SWDIO  PIN9:SWCLK  PIN20:GND
+****************************************************************************/
+
+#include "bsp.h"
+#include "bsp_gpio.h"
+#include "string.h"
+
+
+#define STM3210E_EVAL_BSP_VERSION  "CPLCV2.0-STM32F103VET6"
+
+uint8_t aTxStartMessage[] = "\r\nUART-Hyperterminal communication based on IT\r\nEnter 10 characters using keyboard :\r\n";
+/* Buffer used for reception */
+uint8_t aRxBuffer[20];
+uint8_t senddata_IT[23]=" Transmit IT or DMA.\r\n";
+
+//char MSComm3SendStr[200];
+
+//uint8_t progress=0;	 				//动作流程状态机
+
+//int32_t AutoRunFlag = 0;                          //上电时自动模式下必须按Run才能自动执行程序
+//int8_t TesterMode = 0;                           //测试模式0：不执行任何动作  其余值时执行相关动作
+//char ManualAutoRun = 1;                        //手动状态下自动运行标志位
+
+
+//重写这个函数,重定向printf函数到串口
+/*fputc*/
+extern UART_HandleTypeDef huart1;
+uint8_t ch;
+uint8_t ch_r;
+int fputc(int c, FILE * f)
+{
+    ch=c;
+    HAL_UART_Transmit(&huart1,&ch,1,1000); //发送串口，不同的单片机函数和串口命名不同，替换对于的函数串口名字即可实现不同库和不同单片机的重定向了
+    return c;
+
+}
+
+//重定向scanf函数到串口 意思就是说接受串口发过来的数据
+/*fgetc*/
+int fgetc(FILE * F)
+{
+    HAL_UART_Receive (&huart1,&ch_r,1,0xffff);  //接收
+    return ch_r;
+}
+
+
+/********************************************************************************
+* 功  能：用户初始化程序
+* 参  数：无
+* 返回值：无
+*********************************************************************************/
+int wait_ready()	//	用户初始化程序
+{
+    HAL_GPIO_WritePin(EN_24V_GPIO_Port,EN_24V_Pin,GPIO_PIN_SET);
+
+    printf("The system init ok---\r\n");
+
+}
+/********************************************************************************
+* 功  能：用户的loop程序
+* 参  数：无
+* 返回值：无
+*********************************************************************************/
+int work_flow()					//执行用户的loop程序
+{
+	
+//	char str[] = "Hello,HaiCoder,Hello,World";
+//	const char s[2] = ",";
+//	char *token;
+//	// 获取第一个子字符串
+//	token = strtok(str, s);
+//	/* 继续获取其他的子字符串 */
+//	while ( token != NULL )
+//	{
+//		printf("Str = %s\n", token);
+//		token = strtok(NULL, s);
+//	}
+
+PDout(0)=1;
+HAL_Delay(200);
+PDout(0)=0;
+HAL_Delay(200);
+
+
+PDout(6)=0;
+HAL_Delay(200);
+PDout(6)=1;
+HAL_Delay(200);
+
+//OUT16(1);
+//HAL_Delay(200);
+
+//OUT16(0);
+//HAL_Delay(200);
+
+//---------2.轮询方式发送与接收
+//HAL_StatusTypeDef HAL_UART_Receive(UART_HandleTypeDef *huart, uint8_t *pData, uint16_t Size, uint32_t Timeout)
+//轮询接收采用阻塞式超时接收模式
+//    HAL_UART_Receive(&huart1, (uint8_t *)aRxBuffer, 10,(uint32_t)0x01FF);
+//		HAL_UART_Transmit(&huart1, (uint8_t *)&aRxBuffer, 10, 0x0FFF);
+//	aRxBuffer[]=
+
+//
+//	int val=0;
+//	scanf("%d",&val);
+//	printf("%d\r\n",val);
+
+////发送数据
+//    if(HAL_UART_Transmit(&huart1,(uint8_t *)aRxBuffer,20,0xFFFF) != HAL_OK)
+//    {
+//        /* Transfer error in reception process */
+//        printf("\n");
+//        Error_Handler();
+//    }
+//    printf("\n");
+
+//---------3.中断方式发送与接收
+//增加接收中断回调函数
+//发送数据
+//uint8_t senddata_IT[23]="This use Transmit IT.\r\n";
+//if(HAL_UART_Transmit_IT(&huart1,senddata_IT, sizeof(senddata_IT)) != HAL_OK)
+//    {
+//        /* Transfer error in reception process */
+//        Error_Handler();
+//    }
+
+////接收数据，调用此函数后，接收中断可执行一次。
+//if(HAL_UART_Transmit_IT(&huart1,senddata_IT, sizeof(senddata_IT))!= HAL_OK)
+//    {
+//        Error_Handler();
+//HAL_StatusTypeDef HAL_UART_Receive_IT(UART_HandleTypeDef *huart, uint8_t *pData, uint16_t Size)
+//HAL_UART_Receive_IT(&huart1,senddata_IT, sizeof(senddata_IT));
+//---------4.DMA方式发送与接收
+//HAL_UART_Receive_DMA(&huart1,senddata_IT, sizeof(senddata_IT));
+
+//if(HAL_GPIO_ReadPin(M_I2_GPIO_Port,M_I2_Pin)==0)
+//{
+//    HAL_GPIO_WritePin(ERRLED_GPIO_Port,ERRLED_Pin,GPIO_PIN_RESET);
+//}
+//else
+//    HAL_GPIO_WritePin(ERRLED_GPIO_Port,ERRLED_Pin,GPIO_PIN_SET);
+
+//HAL_GPIO_TogglePin(M_O16_GPIO_Port,M_O16_Pin);
+
+//HAL_Delay(200);
+
+}
+
+
+///**
+//  * @brief  This method returns the STM3210E EVAL BSP Driver revision
+//  * @retval version : 0xXYZR (8bits for each decimal, R for RC)
+//  */
+//uint32_t BSP_GetVersion(void)
+//{
+//  return STM3210E_EVAL_BSP_VERSION;
+//}
+
